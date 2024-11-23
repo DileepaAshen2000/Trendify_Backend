@@ -51,21 +51,21 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updatedAt;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private List<ProductVariant> productVariants;
+//    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+//    private List<ProductVariant> productVariants;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id",nullable = false)
-    @JsonIgnore
-    private Category category;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryType_id",nullable = false)
-    @JsonIgnore
-    private CategoryType categoryType;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Resources> resources;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id",nullable = true)
+//    @JsonIgnore
+//    private Category category;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "categoryType_id",nullable = true)
+//    @JsonIgnore
+//    private CategoryType categoryType;
+//
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+//    private List<Resources> resources;
 
     @PrePersist
     protected void onCreate() {

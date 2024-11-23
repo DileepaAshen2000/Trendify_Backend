@@ -15,16 +15,16 @@ import java.util.UUID;
 public class Category {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String code;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
