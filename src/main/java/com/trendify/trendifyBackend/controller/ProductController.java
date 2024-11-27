@@ -2,7 +2,10 @@ package com.trendify.trendifyBackend.controller;
 
 
 import com.trendify.trendifyBackend.dto.ProductDto;
+import com.trendify.trendifyBackend.exceptions.ResourceNotFoundEx;
+import com.trendify.trendifyBackend.mapper.ProductMapper;
 import com.trendify.trendifyBackend.model.Product;
+import com.trendify.trendifyBackend.repository.ProductRepository;
 import com.trendify.trendifyBackend.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -23,9 +26,15 @@ public class ProductController {
     private final ProductService productService;
 
     @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
     public ProductController(ProductService productService){
         this.productService = productService;
     }
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId, @RequestParam(required = false) String slug, HttpServletResponse response){
@@ -43,9 +52,16 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable UUID id){
-        ProductDto productDto = productService.getProductById(id);
-        return new ResponseEntity<>(productDto, HttpStatus.OK);
+        Product product= productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundEx("Product Not Found!"));
+        ProductDto productDto = productMapper.mapProductToDto(product);
+        productDto.setCategoryId(product.getCategory().getId());
+        productDto.setCategoryTypeId(product.getCategoryType().getId());
+        productDto.setVariants(productMapper.mapProductVariantListToDto(product.getProductVariants()));
+        productDto.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
+        return productDto;
     }
+
+
 
     //   create Product
     @PostMapping
