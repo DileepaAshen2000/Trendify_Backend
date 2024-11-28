@@ -52,16 +52,9 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable UUID id){
-        Product product= productRepository.findById(id).orElseThrow(()-> new ResourceNotFoundEx("Product Not Found!"));
-        ProductDto productDto = productMapper.mapProductToDto(product);
-        productDto.setCategoryId(product.getCategory().getId());
-        productDto.setCategoryTypeId(product.getCategoryType().getId());
-        productDto.setVariants(productMapper.mapProductVariantListToDto(product.getProductVariants()));
-        productDto.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
-        return productDto;
+        ProductDto productDto = productService.getProductById(id);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
-
-
 
     //   create Product
     @PostMapping
@@ -75,6 +68,7 @@ public class ProductController {
         Product product = productService.updateProduct(productDto,id);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
+
 
 
 }
