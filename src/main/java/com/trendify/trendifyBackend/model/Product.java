@@ -2,6 +2,7 @@ package com.trendify.trendifyBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.persistence.metamodel.IdentifiableType;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false)
@@ -77,4 +78,6 @@ public class Product {
     protected void onUpdate() {
         updatedAt = new java.util.Date();
     }
+
+
 }
