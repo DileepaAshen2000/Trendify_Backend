@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -25,6 +26,6 @@ public class ProductDto {
     private String categoryName;
     private UUID categoryTypeId;
     private String categoryTypeName;
-//    private List<ProductVariantDto> variants;
-//    private List<ProductResourceDto> productResources;
+    private List<ProductVariantDto> variants;
+    //private List<ProductResourceDto> productResources;
 }

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/category")
-@CrossOrigin
+@CrossOrigin(exposedHeaders = "Content-Range")
 public class CategoryController {
 
     @Autowired
