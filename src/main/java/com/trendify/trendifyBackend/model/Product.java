@@ -2,11 +2,8 @@ package com.trendify.trendifyBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.persistence.metamodel.IdentifiableType;
 import lombok.*;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,21 +49,21 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date updatedAt;
 
-//    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-//    private List<ProductVariant> productVariants;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    private List<ProductVariant> productVariants;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "category_id",nullable = true)
-//    @JsonIgnore
-//    private Category category;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "categoryType_id",nullable = true)
-//    @JsonIgnore
-//    private CategoryType categoryType;
-//
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-//    private List<Resources> resources;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id",nullable = true)
+    @JsonIgnore
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryType_id",nullable = true)
+    @JsonIgnore
+    private CategoryType categoryType;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Resources> resources;
 
     @PrePersist
     protected void onCreate() {
