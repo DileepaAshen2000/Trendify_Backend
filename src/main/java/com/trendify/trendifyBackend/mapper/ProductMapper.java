@@ -57,7 +57,7 @@ public class ProductMapper {
 
         return productResources.stream().map(productResourceDto -> {
             Resources resources= new Resources();
-            if(null != productResourceDto.getId()){
+            if( productResourceDto.getId()!=0){
                 resources.setId(productResourceDto.getId());
             }
             resources.setName(productResourceDto.getName());
@@ -88,7 +88,6 @@ public class ProductMapper {
     }
 
     public ProductDto mapProductToDto(Product product) {
-
         return ProductDto.builder()
                 .id(product.getId())
                 .brand(product.getBrand())
@@ -98,8 +97,15 @@ public class ProductMapper {
                 .rating(product.getRating())
                 .description(product.getDescription())
                 .slug(product.getSlug())
-                .thumbnail(getProductThumbnail(product.getResources())).build();
+                .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
+                .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
+                .categoryCode(product.getCategory() != null ? product.getCategory().getCode() : null)
+                .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null)
+                .categoryTypeName(product.getCategoryType() != null ? product.getCategoryType().getName() : null)
+                .variants(product.getProductVariants() != null ? mapProductVariantListToDto(product.getProductVariants()) : null)
+                .build();
     }
+
 
     private String getProductThumbnail(List<Resources> resources) {
         return resources.stream().filter(Resources::getIsPrimary).findFirst().orElse(null).getUrl();

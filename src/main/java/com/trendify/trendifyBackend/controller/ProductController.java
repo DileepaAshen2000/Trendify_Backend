@@ -3,7 +3,6 @@ package com.trendify.trendifyBackend.controller;
 import com.trendify.trendifyBackend.dto.ProductDto;
 import com.trendify.trendifyBackend.mapper.ProductMapper;
 import com.trendify.trendifyBackend.model.Product;
-import com.trendify.trendifyBackend.repository.ProductRepository;
 import com.trendify.trendifyBackend.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -32,7 +31,9 @@ public class ProductController {
     private ProductMapper productMapper;
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId, @RequestParam(required = false) String slug, HttpServletResponse response){
+    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId,
+                                                           @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId,
+                                                           @RequestParam(required = false) String slug, HttpServletResponse response){
         List<ProductDto> productList = new ArrayList<>();
         if(StringUtils.isNotBlank(slug)){
             ProductDto productDto = productService.getProductBySlug(slug);
@@ -50,6 +51,8 @@ public class ProductController {
         ProductDto productDto = productService.getProductById(id);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
+
+
 
     //   create Product
     @PostMapping
