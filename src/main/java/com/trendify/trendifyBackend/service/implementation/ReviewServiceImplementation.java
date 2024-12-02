@@ -30,7 +30,6 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
 
-
     // Convert ProductDto to Product entity
     private Product convertToProduct(ProductDto productDto) {
         Product product = new Product();
@@ -38,7 +37,7 @@ public class ReviewServiceImplementation implements ReviewService {
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
-       // product.setCategoryId(productDto.getCategoryId());
+        // product.setCategoryId(productDto.getCategoryId());
         // Map other fields if necessary
         return product;
     }
@@ -64,7 +63,6 @@ public class ReviewServiceImplementation implements ReviewService {
 
     @Override
     public Review getReviewById(Long reviewId) throws Exception {
-        return reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new Exception("Review not found"));
+        return reviewRepository.findById(reviewId).orElseThrow(() -> new Exception("Review not found"));
     }
 }
