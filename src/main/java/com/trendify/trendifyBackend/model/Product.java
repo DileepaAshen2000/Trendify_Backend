@@ -53,17 +53,15 @@ public class Product {
     private List<ProductVariant> productVariants;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id",nullable = true)
-    @JsonIgnore
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "categoryType_id",nullable = true)
-    @JsonIgnore
+    @JoinColumn(name = "categoryType_id", referencedColumnName = "id")
     private CategoryType categoryType;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Resources> resources;
+    //@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    //private List<Resources> resources;
 
     @PrePersist
     protected void onCreate() {
