@@ -107,9 +107,16 @@ public class ProductMapper {
                 .build();
                 //.thumbnail(getProductThumbnail(product.getResources())).build();
     }
-
+// this method return null values, always
+//    private String getProductThumbnail(List<Resources> resources) {
+//        return resources.stream().filter(Resources::getIsPrimary).findFirst().orElse(null).getUrl();
+//    }
     private String getProductThumbnail(List<Resources> resources) {
-        return resources.stream().filter(Resources::getIsPrimary).findFirst().orElse(null).getUrl();
+        return resources.stream()
+                .filter(Resources::getIsPrimary)
+                .findFirst()
+                .map(Resources::getUrl) // Safely retrieve the URL if a resource is found
+                .orElse(null);         // Return null if no primary resource exists
     }
 
     public List<ProductVariantDto> mapProductVariantListToDto(List<ProductVariant> productVariants) {
