@@ -31,20 +31,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getAllProducts(UUID categoryId, UUID typeId) {
+    public List<ProductDto> getAllProducts(UUID categoryId, UUID categoryTypeId) {
 
         Specification<Product> productSpecification = Specification.where(null);
 
         if (null != categoryId) {
             productSpecification = productSpecification.and(ProductSpecification.hasCategoryId(categoryId));
         }
-        if (null != typeId) {
-            productSpecification = productSpecification.and(ProductSpecification.hasCategoryTypeId(typeId));
+        if (null != categoryTypeId) {
+            productSpecification = productSpecification.and(ProductSpecification.hasCategoryTypeId(categoryTypeId));
         }
 
         List<Product> products = productRepository.findAll(productSpecification);
         return productMapper.getProductDtos(products);
     }
+
+
+
 
     @Override
     public ProductDto getProductBySlug(String slug) {
@@ -56,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
         productDto.setCategoryId(product.getCategory().getId());
         productDto.setCategoryTypeId(product.getCategoryType().getId());
         productDto.setVariants(productMapper.mapProductVariantListToDto(product.getProductVariants()));
-       // productDto.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
+        //productDto.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
         return productMapper.mapProductToDto(product);
     }
 
@@ -67,7 +70,9 @@ public class ProductServiceImpl implements ProductService {
         productDto.setCategoryId(product.getCategory().getId());
         productDto.setCategoryTypeId(product.getCategoryType().getId());
         productDto.setVariants(productMapper.mapProductVariantListToDto(product.getProductVariants()));
-       // productDto.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
+        System.out.println("product - " + product.getCategoryType().getId());
+        System.out.println(("Product dto - " + productDto.getCategoryTypeId()));
+        //productDto.setProductResources(productMapper.mapProductResourcesListDto(product.getResources()));
         return productMapper.mapProductToDto(product);
     }
 

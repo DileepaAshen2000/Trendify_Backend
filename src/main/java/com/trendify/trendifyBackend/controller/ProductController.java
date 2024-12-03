@@ -32,14 +32,14 @@ public class ProductController {
     private ProductMapper productMapper;
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId, @RequestParam(required = false) String slug, HttpServletResponse response){
+    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false, name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "categoryTypeId",value = "categoryTypeId") UUID categoryTypeId, @RequestParam(required = false) String slug, HttpServletResponse response){
         List<ProductDto> productList = new ArrayList<>();
         if(StringUtils.isNotBlank(slug)){
             ProductDto productDto = productService.getProductBySlug(slug);
             productList.add(productDto);
         }
         else {
-            productList = productService.getAllProducts(categoryId, typeId);
+            productList = productService.getAllProducts(categoryId, categoryTypeId);
         }
         response.setHeader("Content-Range",String.valueOf(productList.size()));
         return new ResponseEntity<>(productList, HttpStatus.OK);

@@ -34,7 +34,7 @@ public class ReviewController {
     public ResponseEntity<Review> createReview(
             @PathVariable UUID productId,
             @RequestBody CreateReviewRequest req) {
-        ProductDto productDto = productService.getProductById(productId); // Fetch ProductDto
+        ProductDto productDto = productService.getProductById(productId);
         Review review = reviewService.createReview(req, productDto);
         return ResponseEntity.ok(review);
     }

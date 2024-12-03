@@ -44,14 +44,16 @@ public class ProductMapper {
             product.setProductVariants(mapToProductVariant(productDto.getVariants(),product));
         }
 
-//        if(null != productDto.getProductResources()){
-//            product.setResources(mapToProductResources(productDto.getProductResources(),product));
-//        }
+       // if(null != productDto.getProductResources()){
+            //product.setResources(mapToProductResources(productDto.getProductResources(),product));
+       // }
 
 
 
         return product;
     }
+
+
 
     private List<Resources> mapToProductResources(List<ProductResourceDto> productResources, Product product) {
 
@@ -98,7 +100,12 @@ public class ProductMapper {
                 .rating(product.getRating())
                 .description(product.getDescription())
                 .slug(product.getSlug())
-                .thumbnail(getProductThumbnail(product.getResources())).build();
+                .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
+                .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
+                .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null)
+                .categoryTypeName(product.getCategoryType() != null ? product.getCategoryType().getName() : null)
+                .build();
+                //.thumbnail(getProductThumbnail(product.getResources())).build();
     }
 // this method return null values, always
 //    private String getProductThumbnail(List<Resources> resources) {
@@ -136,6 +143,7 @@ public class ProductMapper {
                 .name(resources.getName())
                 .isPrimary(resources.getIsPrimary())
                 .type(resources.getType())
+
                 .build();
     }
 }
