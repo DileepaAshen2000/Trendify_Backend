@@ -100,7 +100,7 @@ public class ProductMapper {
                 .rating(product.getRating())
                 .description(product.getDescription())
                 .slug(product.getSlug())
-        .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
+                .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
                 .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
                 .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null)
                 .categoryTypeName(product.getCategoryType() != null ? product.getCategoryType().getName() : null)
