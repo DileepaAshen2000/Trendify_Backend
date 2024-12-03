@@ -14,4 +14,7 @@ public class ProductSpecification {
     public static Specification<Product> hasCategoryTypeId(UUID typeId){
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("categoryType").get("id"),typeId);
     }
+    public static Specification<Product> hasCategoryTypeName(String typeName){
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("categoryType").get("name"),typeName);
+    }
 }

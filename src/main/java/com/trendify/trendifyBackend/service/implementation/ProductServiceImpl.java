@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getAllProducts(UUID categoryId, UUID typeId) {
+    public List<ProductDto> getAllProducts(UUID categoryId, UUID typeId,String typeName) {
 
         Specification<Product> productSpecification = Specification.where(null);
 
@@ -40,6 +40,9 @@ public class ProductServiceImpl implements ProductService {
         }
         if (null != typeId) {
             productSpecification = productSpecification.and(ProductSpecification.hasCategoryTypeId(typeId));
+        }
+        if (null != typeName) {
+            productSpecification = productSpecification.and(ProductSpecification.hasCategoryTypeName(typeName));
         }
 
         List<Product> products = productRepository.findAll(productSpecification);
@@ -83,5 +86,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).orElseThrow(BadRequestException::new);
     }
 
-
+    @Override
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.searchProducts(keyword);
+    }
 }

@@ -33,6 +33,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId,
                                                            @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId,
+                                                           @RequestParam(required = false,name = "typeName",value = "typeName") String typeName,
                                                            @RequestParam(required = false) String slug, HttpServletResponse response){
         List<ProductDto> productList = new ArrayList<>();
         if(StringUtils.isNotBlank(slug)){
@@ -40,7 +41,7 @@ public class ProductController {
             productList.add(productDto);
         }
         else {
-            productList = productService.getAllProducts(categoryId, typeId);
+            productList = productService.getAllProducts(categoryId, typeId,typeName);
         }
         response.setHeader("Content-Range",String.valueOf(productList.size()));
         return new ResponseEntity<>(productList, HttpStatus.OK);
@@ -67,6 +68,12 @@ public class ProductController {
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }
 
 
 }
