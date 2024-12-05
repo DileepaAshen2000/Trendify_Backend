@@ -24,8 +24,9 @@ public class ProductDto {
     private String thumbnail;
     private String slug;
     private String categoryName;
+    private String categoryCode;
     private UUID categoryTypeId;
     private String categoryTypeName;
     private List<ProductVariantDto> variants;
-    //private List<ProductResourceDto> productResources;
+    private List<ProductResourceDto> productResources;
 }

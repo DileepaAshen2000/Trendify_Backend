@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class ProductResourceDto {
 
-    private UUID id;
+    private long id;
     private String name;
     private String url;
     private String type;

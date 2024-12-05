@@ -19,18 +19,18 @@ public class Resources {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private long id;
 
-    @Column(nullable = false)
+
     private String name;
 
-    @Column(nullable = false)
+
     private String url;
 
-    @Column(nullable = false)
+
     private Boolean isPrimary;
 
-    @Column(nullable = false)
+
     private String type;
 
     @ManyToOne
