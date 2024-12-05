@@ -10,7 +10,10 @@ import java.util.UUID;
 public interface ProductService {
 
      public Product addProduct(ProductDto product);
-     public List<ProductDto> getAllProducts(UUID categoryId, UUID typeId);
+     public List<ProductDto> getAllProducts(UUID categoryId, UUID typeId,String typeName);
+
+
+
 
      ProductDto getProductBySlug(String slug);
 
@@ -19,4 +22,7 @@ public interface ProductService {
      Product updateProduct(ProductDto productDto, UUID id);
 
      Product fetchProductById(UUID uuid) throws Exception;
+
+     public List<Product> searchProducts(String keyword);
+     public List<ProductDto> newlyArrived();
 }
