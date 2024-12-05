@@ -53,6 +53,7 @@ public class Product {
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     private List<ProductVariant> productVariants;
 
+//<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id",nullable = true)
     @JsonManagedReference
@@ -65,6 +66,18 @@ public class Product {
 
 //    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 //    private List<Resources> resources;
+//=======
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "category_id", referencedColumnName = "id")
+//    private Category category;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "categoryType_id", referencedColumnName = "id")
+//    private CategoryType categoryType;
+//
+//    //@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+//    //private List<Resources> resources;
+//>>>>>>> main
 
     @PrePersist
     protected void onCreate() {

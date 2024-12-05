@@ -13,6 +13,8 @@ public interface ProductService {
      public List<ProductDto> getAllProducts(UUID categoryId, UUID typeId,String typeName);
 
 
+
+
      ProductDto getProductBySlug(String slug);
 
      ProductDto getProductById(UUID id);
