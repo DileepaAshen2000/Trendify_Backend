@@ -4,6 +4,8 @@ import com.trendify.trendifyBackend.auth.entities.User;
 import com.trendify.trendifyBackend.auth.repositories.UserDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
 
 @Service
 public class OAuth2Service {

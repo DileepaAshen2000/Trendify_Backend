@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
 
 import java.io.IOException;
 
@@ -28,7 +30,7 @@ public class OAuth2Controller {
     @GetMapping("success")
     public void callbackOAuth2(@AuthenticationPrincipal OAuth2User oAuth2User, HttpServletResponse response) throws IOException {
 
-        String userName = oAuth2User.getAttribute(name:"email");
+        String userName = oAuth2User.getAttribute("email");
         User user=oAuth2Service.getUser(userName);
         if (null == user){
             user = oAuth2Service.createUser(oAuth2User, "google");

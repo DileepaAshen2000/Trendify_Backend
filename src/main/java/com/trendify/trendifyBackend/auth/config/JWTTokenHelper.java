@@ -6,9 +6,17 @@ import org.springframework.core.codec.Decoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+
+
+
 
 @Component
 public class JWTTokenHelper {
@@ -46,7 +54,7 @@ public class JWTTokenHelper {
 
         String authHeader = getAuthHeaderFromHeader(request);
         if( authHeader != null && authHeader.startsWith("Baere")){
-            return authHeader.substring(7)
+            return authHeader.substring(7);
         }
 
 

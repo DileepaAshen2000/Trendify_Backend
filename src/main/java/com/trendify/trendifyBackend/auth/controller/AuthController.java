@@ -7,6 +7,7 @@ import com.trendify.trendifyBackend.auth.dto.RegistrationResponse;
 import com.trendify.trendifyBackend.auth.dto.UserToken;
 import com.trendify.trendifyBackend.auth.entities.User;
 import com.trendify.trendifyBackend.auth.services.RegistrationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,6 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -54,7 +54,7 @@ public class AuthController {
                 //generate JWT Token
 
                 String token= jwtTokenHelper.generateToken(user.getEmail());
-                UserToken userToken UserToken.builder().token(token).build();
+                UserToken userToken = UserToken.builder().token(token).build();
                 return new ResponseEntity<>(userToken,HttpStatus.OK);
             }
 

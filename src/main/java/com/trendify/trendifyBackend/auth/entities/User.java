@@ -20,6 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class User implements UserDetails{
 
     @Id
@@ -52,8 +53,9 @@ public class User implements UserDetails{
     @JoinTable(name = "AUTH_USER_AUTHORITY",joinColumns = @JoinColumn(referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Authority> authorities;
 
-    public static Object builder() {
-    }
+//    public static Object builder() {
+//        return null;
+//    }
 
 
     @Override
