@@ -59,7 +59,7 @@ public class ProductMapper {
 
         return productResources.stream().map(productResourceDto -> {
             Resources resources= new Resources();
-            if(null != productResourceDto.getId()){
+            if( productResourceDto.getId()!=0){
                 resources.setId(productResourceDto.getId());
             }
             resources.setName(productResourceDto.getName());
@@ -90,7 +90,6 @@ public class ProductMapper {
     }
 
     public ProductDto mapProductToDto(Product product) {
-
         return ProductDto.builder()
                 .id(product.getId())
                 .brand(product.getBrand())
@@ -102,22 +101,26 @@ public class ProductMapper {
                 .slug(product.getSlug())
                 .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
                 .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
+//<<<<<<< HEAD
+                .categoryCode(product.getCategory() != null ? product.getCategory().getCode() : null)
                 .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null)
                 .categoryTypeName(product.getCategoryType() != null ? product.getCategoryType().getName() : null)
+                .variants(product.getProductVariants() != null ? mapProductVariantListToDto(product.getProductVariants()) : null)
                 .build();
-                //.thumbnail(getProductThumbnail(product.getResources())).build();
+//=======
+//                .categoryTypeId(product.getCategoryType() != null ? product.getCategoryType().getId() : null)
+//                .categoryTypeName(product.getCategoryType() != null ? product.getCategoryType().getName() : null)
+//                .build();
+//                //.thumbnail(getProductThumbnail(product.getResources())).build();
+//>>>>>>> main
     }
+
 // this method return null values, always
 //    private String getProductThumbnail(List<Resources> resources) {
 //        return resources.stream().filter(Resources::getIsPrimary).findFirst().orElse(null).getUrl();
 //    }
-    private String getProductThumbnail(List<Resources> resources) {
-        return resources.stream()
-                .filter(Resources::getIsPrimary)
-                .findFirst()
-                .map(Resources::getUrl) // Safely retrieve the URL if a resource is found
-                .orElse(null);         // Return null if no primary resource exists
-    }
+
+
 
     public List<ProductVariantDto> mapProductVariantListToDto(List<ProductVariant> productVariants) {
         return productVariants.stream().map(this::mapProductVariantDto).toList();

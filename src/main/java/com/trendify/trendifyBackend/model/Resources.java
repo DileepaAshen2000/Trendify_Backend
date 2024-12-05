@@ -19,7 +19,7 @@ public class Resources {
 
     @Id
     @GeneratedValue
-    private UUID id;
+    private long id;
 
 
     private String name;

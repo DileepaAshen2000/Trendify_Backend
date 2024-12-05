@@ -3,7 +3,6 @@ package com.trendify.trendifyBackend.controller;
 import com.trendify.trendifyBackend.dto.ProductDto;
 import com.trendify.trendifyBackend.mapper.ProductMapper;
 import com.trendify.trendifyBackend.model.Product;
-import com.trendify.trendifyBackend.repository.ProductRepository;
 import com.trendify.trendifyBackend.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -28,18 +27,27 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @Autowired
-    private ProductMapper productMapper;
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false, name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "categoryTypeId",value = "categoryTypeId") UUID categoryTypeId, @RequestParam(required = false) String slug, HttpServletResponse response){
+//<<<<<<< HEAD
+    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId,
+                                                           @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId,
+                                                           @RequestParam(required = false,name = "typeName",value = "typeName") String typeName,
+                                                           @RequestParam(required = false) String slug, HttpServletResponse response){
+//=======
+//    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false, name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "categoryTypeId",value = "categoryTypeId") UUID categoryTypeId, @RequestParam(required = false) String slug, HttpServletResponse response){
+//>>>>>>> main
         List<ProductDto> productList = new ArrayList<>();
         if(StringUtils.isNotBlank(slug)){
             ProductDto productDto = productService.getProductBySlug(slug);
             productList.add(productDto);
         }
         else {
-            productList = productService.getAllProducts(categoryId, categoryTypeId);
+//<<<<<<< HEAD
+            productList = productService.getAllProducts(categoryId, typeId,typeName);
+//=======
+//            productList = productService.getAllProducts(categoryId, categoryTypeId);
+//>>>>>>> main
         }
         response.setHeader("Content-Range",String.valueOf(productList.size()));
         return new ResponseEntity<>(productList, HttpStatus.OK);
@@ -50,6 +58,8 @@ public class ProductController {
         ProductDto productDto = productService.getProductById(id);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
+
+
 
     //   create Product
     @PostMapping
@@ -64,6 +74,17 @@ public class ProductController {
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/newlyArrived")
+    public ResponseEntity<List<ProductDto>> newlyArrivedProducts() {
+        List<ProductDto> products = productService.newlyArrived();
+        return ResponseEntity.ok(products);
+    }
 
 
 }
