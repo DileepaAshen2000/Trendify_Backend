@@ -22,4 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID>, JpaSpec
             "LOWER(p.slug) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Product> searchProducts(@Param("keyword") String keyword);
 
+
+    @Query("SELECT p FROM Product p WHERE p.isNewArrival=true" )
+    List<Product> newArrivals();
+
 }

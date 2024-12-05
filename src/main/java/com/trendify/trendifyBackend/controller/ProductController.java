@@ -27,8 +27,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @Autowired
-    private ProductMapper productMapper;
 
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId,
@@ -72,6 +70,11 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
         List<Product> products = productService.searchProducts(keyword);
+        return ResponseEntity.ok(products);
+    }
+    @GetMapping("/newlyArrived")
+    public ResponseEntity<List<ProductDto>> newlyArrivedProducts() {
+        List<ProductDto> products = productService.newlyArrived();
         return ResponseEntity.ok(products);
     }
 

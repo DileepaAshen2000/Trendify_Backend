@@ -90,4 +90,10 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchProducts(String keyword) {
         return productRepository.searchProducts(keyword);
     }
+
+    @Override
+    public List<ProductDto> newlyArrived() {
+         List<Product> products=productRepository.newArrivals();
+        return productMapper.getProductDtos(products);
+    }
 }
