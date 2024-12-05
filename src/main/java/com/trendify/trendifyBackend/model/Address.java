@@ -1,10 +1,8 @@
 package com.trendify.trendifyBackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -22,6 +20,9 @@ public class Address {
     private UUID id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private String street;
 
     @Column(nullable = false)
@@ -33,9 +34,14 @@ public class Address {
     @Column(nullable = false)
     private String zipcode;
 
-    // Import User class to here
+    @Column(nullable = false)
+    private String phoneNumber;
+
+     //Import User class to here
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id",nullable = false)
+//    @JsonIgnore
+//    @ToString.Exclude
 //    private User user;
 
 }
