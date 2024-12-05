@@ -1,6 +1,7 @@
 package com.trendify.trendifyBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.trendify.trendifyBackend.auth.entities.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,10 +39,10 @@ public class Address {
     private String phoneNumber;
 
      //Import User class to here
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id",nullable = false)
-//    @JsonIgnore
-//    @ToString.Exclude
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",nullable = false)
+    @JsonIgnore
+    @ToString.Exclude
+    private User user;
 
 }

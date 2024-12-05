@@ -1,6 +1,7 @@
 package com.trendify.trendifyBackend.auth.dto;
 
 //import com.thecodereveal.shopease.entities.Address;
+import com.trendify.trendifyBackend.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class UserDetailsDto {
     private String phoneNumber;
     private String email;
     private Object authorityList;
-//    private List<Address> addressList;
+    private List<Address> addressList;
+
 }

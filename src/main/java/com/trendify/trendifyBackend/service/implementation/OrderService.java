@@ -1,5 +1,6 @@
 package com.trendify.trendifyBackend.service.implementation;
 
+import com.trendify.trendifyBackend.auth.entities.User;
 import com.trendify.trendifyBackend.dto.OrderRequest;
 import com.trendify.trendifyBackend.model.*;
 import com.trendify.trendifyBackend.repository.OrderRepository;
@@ -7,6 +8,7 @@ import com.trendify.trendifyBackend.service.ProductService;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -16,9 +18,8 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    //TODO : import userDetailsService here
-//    @Autowired
-//    private userDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -29,12 +30,12 @@ public class OrderService {
     @Transactional
     public Order createOrder(OrderRequest orderRequest, Principal principal) throws Exception{
         //TODO : import UserDetailsServices
-//        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
-//        Address address = user.getAddressList().stream().filter(address1 -> orderRequest.getAddressId().equals(address1.getId())).findFirst().orElseThrow(BadRequestException::new);
+        User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+        Address address = user.getAddressList().stream().filter(address1 -> orderRequest.getAddressId().equals(address1.getId())).findFirst().orElseThrow(BadRequestException::new);
 
         Order order = Order.builder()
-//                .user(user)
-//                .address(address)
+                .user(user)
+                .address(address)
                 .totalAmount(orderRequest.getTotalAmount())
                 .orderDate(orderRequest.getOrderDate())
                 .discount(orderRequest.getDiscount())

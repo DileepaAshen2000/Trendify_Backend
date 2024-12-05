@@ -1,6 +1,7 @@
 package com.trendify.trendifyBackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.trendify.trendifyBackend.auth.entities.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,10 +25,10 @@ public class Order {
     private Date orderDate;
 
     //Import user class to here
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id",nullable = false)
-//    @JsonIgnore
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",nullable = false)
+    @JsonIgnore
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id",nullable = false)

@@ -16,6 +16,7 @@ import java.util.UUID;
 
 public class OrderRequest {
     private UUID userId;
+    private UUID addressId;
     private Date orderDate;
     private List<OrderItemRequest> OrderItemRequests;
     private Double totalAmount;
