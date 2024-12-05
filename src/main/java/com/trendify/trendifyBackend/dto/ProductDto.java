@@ -29,4 +29,7 @@ public class ProductDto {
     private String categoryTypeName;
     private List<ProductVariantDto> variants;
     private List<ProductResourceDto> productResources;
+
+//    private List<ProductResourceDto> productResources;
+
 }

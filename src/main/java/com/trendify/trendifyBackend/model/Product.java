@@ -75,9 +75,9 @@ public class Product {
 //    @JoinColumn(name = "categoryType_id", referencedColumnName = "id")
 //    private CategoryType categoryType;
 //
-//    //@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-//    //private List<Resources> resources;
-//>>>>>>> main
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Resources> resources;
+
 
     @PrePersist
     protected void onCreate() {
