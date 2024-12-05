@@ -24,17 +24,28 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ProductService productService;
 
-    @GetMapping("/products/{productId}/reviews")
+    @GetMapping("reviews/{reviewId}")
+    public ResponseEntity<?> getReviewById(@PathVariable("reviewId") Long reviewId) {
+        try {
+            Review review = reviewService.getReviewById(reviewId);
+            return ResponseEntity.ok(review);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/products/{id}/reviews")
     public ResponseEntity<List<Review>> getReviewsByProductId(@PathVariable UUID id) {
         List<Review> reviews = reviewService.getReviewByProductId(id);
         return ResponseEntity.ok(reviews);
     }
 
-    @PostMapping("/products/{productId}/reviews")
+    @PostMapping("/products/{id}/reviews")
     public ResponseEntity<Review> createReview(
-            @PathVariable UUID productId,
+            @PathVariable UUID id,
             @RequestBody CreateReviewRequest req) {
-        ProductDto productDto = productService.getProductById(productId);
+        ProductDto productDto = productService.getProductById(id);
         Review review = reviewService.createReview(req, productDto);
         return ResponseEntity.ok(review);
     }
@@ -43,7 +54,7 @@ public class ReviewController {
     public ResponseEntity<Review> updateReview(
             @PathVariable Long reviewId,
             @RequestBody CreateReviewRequest reviewRequest) throws Exception {
-        Review review = reviewService.updateReview(reviewId, reviewRequest.getReviewText(), reviewRequest.getReviewRating());
+        Review review = reviewService.updateReview(reviewId, reviewRequest.getReviewText(), reviewRequest.getProductRating());
 
         return ResponseEntity.ok(review);
     }
@@ -55,5 +66,15 @@ public class ReviewController {
              ) throws Exception {
         reviewService.deleteReview(reviewId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/products/{id}/average-rating")
+    public ResponseEntity<Double> getAverageRatingByProductId(@PathVariable UUID id) {
+        try {
+            Double averageRating = reviewService.getAverageRatingByProductId(id);
+            return ResponseEntity.ok(averageRating);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body(null);
+        }
     }
 }

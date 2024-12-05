@@ -14,6 +14,9 @@ public interface ReviewService {
     Review createReview(CreateReviewRequest req,
 
                         ProductDto product);
+
+    Double getAverageRatingByProductId(UUID productId);
+
     List<Review> getReviewByProductId(UUID id);
 
     Review updateReview(Long reviewId, String reviewText, double rating) throws Exception;
