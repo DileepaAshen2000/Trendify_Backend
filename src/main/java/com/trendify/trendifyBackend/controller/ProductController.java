@@ -1,6 +1,8 @@
 package com.trendify.trendifyBackend.controller;
 
+
 import com.trendify.trendifyBackend.dto.ProductDto;
+import com.trendify.trendifyBackend.exceptions.ResourceNotFoundEx;
 import com.trendify.trendifyBackend.mapper.ProductMapper;
 import com.trendify.trendifyBackend.model.Product;
 import com.trendify.trendifyBackend.repository.ProductRepository;
@@ -11,17 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(exposedHeaders = "Content-Range")
+@CrossOrigin
 public class ProductController {
 
     private final ProductService productService;
 
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     public ProductController(ProductService productService){

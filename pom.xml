@@ -60,6 +60,12 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.12.0</version>
 		</dependency>
+		<dependency>
+    		<groupId>com.stripe</groupId>
+    		<artifactId>stripe-java</artifactId>
+    		<version>23.2.0</version> <!-- Use the latest version -->
+		</dependency>
+
 
 
 	</dependencies>
