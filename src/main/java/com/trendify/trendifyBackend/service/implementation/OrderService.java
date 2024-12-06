@@ -1,5 +1,6 @@
 package com.trendify.trendifyBackend.service.implementation;
 
+import com.trendify.trendifyBackend.auth.dto.OrderResponse;
 import com.trendify.trendifyBackend.auth.entities.User;
 import com.trendify.trendifyBackend.dto.OrderRequest;
 import com.trendify.trendifyBackend.model.*;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderService {
@@ -27,8 +29,11 @@ public class OrderService {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    PaymentIntentService paymentIntentService;
+
     @Transactional
-    public Order createOrder(OrderRequest orderRequest, Principal principal) throws Exception{
+    public OrderResponse createOrder(OrderRequest orderRequest, Principal principal) throws Exception{
         //TODO : import UserDetailsServices
         User user = (User) userDetailsService.loadUserByUsername(principal.getName());
         Address address = user.getAddressList().stream().filter(address1 -> orderRequest.getAddressId().equals(address1.getId())).findFirst().orElseThrow(BadRequestException::new);
@@ -71,9 +76,16 @@ public class OrderService {
         payment.setAmount(order.getTotalAmount());
         payment.setPaymentMethod(order.getPaymentMethod());
         order.setPayment(payment);
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
 
-
+        OrderResponse orderResponse = OrderResponse.builder()
+                .paymentMethod(orderRequest.getPaymentMethods())
+                .orderId(savedOrder.getId())
+                .build();
+        if(Objects.equals(orderRequest.getPaymentMethods(), "CARD")){
+            orderResponse.setCredentials(paymentIntentService.createPaymentIntent(order));
+        }
+        return orderResponse;
 
     }
 }
