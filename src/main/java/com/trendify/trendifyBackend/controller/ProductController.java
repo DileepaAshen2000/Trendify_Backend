@@ -29,25 +29,21 @@ public class ProductController {
 
 
     @GetMapping
-//<<<<<<< HEAD
+
     public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false,name = "categoryId",value = "categoryId") UUID categoryId,
                                                            @RequestParam(required = false,name = "typeId",value = "typeId") UUID typeId,
                                                            @RequestParam(required = false,name = "typeName",value = "typeName") String typeName,
                                                            @RequestParam(required = false) String slug, HttpServletResponse response){
-//=======
-//    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestParam(required = false, name = "categoryId",value = "categoryId") UUID categoryId, @RequestParam(required = false,name = "categoryTypeId",value = "categoryTypeId") UUID categoryTypeId, @RequestParam(required = false) String slug, HttpServletResponse response){
-//>>>>>>> main
+
         List<ProductDto> productList = new ArrayList<>();
         if(StringUtils.isNotBlank(slug)){
             ProductDto productDto = productService.getProductBySlug(slug);
             productList.add(productDto);
         }
         else {
-//<<<<<<< HEAD
+
             productList = productService.getAllProducts(categoryId, typeId,typeName);
-//=======
-//            productList = productService.getAllProducts(categoryId, categoryTypeId);
-//>>>>>>> main
+
         }
         response.setHeader("Content-Range",String.valueOf(productList.size()));
         return new ResponseEntity<>(productList, HttpStatus.OK);
@@ -76,8 +72,8 @@ public class ProductController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
-        List<Product> products = productService.searchProducts(keyword);
+    public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam String keyword) {
+        List<ProductDto> products = productService.searchProducts(keyword);
         return ResponseEntity.ok(products);
     }
     @GetMapping("/newlyArrived")
