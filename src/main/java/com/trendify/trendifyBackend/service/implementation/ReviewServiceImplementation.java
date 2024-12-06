@@ -23,10 +23,24 @@ public class ReviewServiceImplementation implements ReviewService {
         Review review = new Review();
         review.setProduct(product);
         review.setReviewText(req.getReviewText());
-        review.setRating(req.getReviewRating());
+        review.setProductRating(req.getProductRating());
         review.setProductImages(req.getProductImages());
 
         return reviewRepository.save(review);
+    }
+    @Override
+    public Double getAverageRatingByProductId(UUID productId) {
+        List<Review> reviews = reviewRepository.findByProductId(productId); // Assuming a method in the repository
+        if (reviews.isEmpty()) {
+            return 0.0; // No reviews, so return 0.0
+        }
+
+        double totalRating = 0;
+        for (Review review : reviews) {
+            totalRating += review.getProductRating(); // Assuming the Review model has getProductRating() method
+        }
+
+        return totalRating / reviews.size(); // Return the average rating
     }
 
 
@@ -38,7 +52,7 @@ public class ReviewServiceImplementation implements ReviewService {
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
         // product.setCategoryId(productDto.getCategoryId());
-        // Map other fields if necessary
+
         return product;
     }
 
@@ -48,10 +62,10 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public Review updateReview(Long reviewId, String reviewText, double rating) throws Exception {
+    public Review updateReview(Long reviewId, String reviewText, double productRating) throws Exception {
         Review review = getReviewById(reviewId);
         review.setReviewText(reviewText);
-        review.setRating(rating);
+        review.setProductRating(productRating);
         return reviewRepository.save(review);
     }
 
