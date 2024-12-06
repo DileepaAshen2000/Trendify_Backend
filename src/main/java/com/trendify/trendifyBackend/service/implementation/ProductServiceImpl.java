@@ -102,8 +102,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> searchProducts(String keyword) {
-        return productRepository.searchProducts(keyword);
+    public List<ProductDto> searchProducts(String keyword) {
+        List<Product> products= productRepository.searchProducts(keyword);
+        return productMapper.getProductDtos(products);
     }
 
     @Override

@@ -23,6 +23,6 @@ public interface ProductService {
 
      Product fetchProductById(UUID uuid) throws Exception;
 
-     public List<Product> searchProducts(String keyword);
+     public List<ProductDto> searchProducts(String keyword);
      public List<ProductDto> newlyArrived();
 }
